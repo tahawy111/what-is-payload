@@ -25,6 +25,7 @@
     "payload": "3.33.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-qr-barcode-scanner": "^2.0.4",
     "sharp": "0.32.6"
   },
   "devDependencies": {

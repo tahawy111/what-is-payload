@@ -1,34 +1,30 @@
 'use client'
+import React, { useEffect } from 'react'
+import { useBarcodeScan } from '@/hooks/useBarcodeScan'
 
-import React, { useEffect, useState } from 'react'
-import BarcodeScannerComponent from 'react-qr-barcode-scanner'
+function HomPage() {
+  const { barcode, scanning } = useBarcodeScan()
 
-export default function HomePage() {
-  const [barcode, setBarcode] = useState<string>('')
+  useEffect(() => {
+    if (barcode) {
+      console.log('Scanned barcode:', barcode)
+      // Handle the barcode here
+    }
+  }, [barcode])
 
   return (
-    <div className="home">
-      <div className="content">
-        <h1>Scan a Barcode</h1>
-      </div>
-
-      <div className="scanner">
-        <BarcodeScannerComponent
-          width={300}
-          height={200}
-          onUpdate={(err, result: any) => {
-            console.log('Error:', err)
-            console.log('Result:', result)
-            if (result?.text) {
-              setBarcode(result.text) // Update the barcode state
-              console.log('Scanned Barcode:', result.text)
-            }
-          }}
-        />
-        <div>
-          {barcode ? <span>Scanned Barcode: {barcode}</span> : <span>No barcode scanned</span>}
-        </div>
+    <div className="p-4">
+      <h1>Barcode Scanner</h1>
+      <div className="mt-4">
+        {scanning ? <p>Scanning...</p> : <p>Ready to scan</p>}
+        {barcode && (
+          <p className="mt-2">
+            Last scanned code: <strong>{barcode}</strong>
+          </p>
+        )}
       </div>
     </div>
   )
 }
+
+export default HomPage

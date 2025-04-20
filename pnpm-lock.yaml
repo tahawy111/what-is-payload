@@ -38,12 +38,12 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
-      react-qr-barcode-scanner:
-        specifier: ^2.0.4
-        version: 2.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sharp:
         specifier: 0.32.6
         version: 0.32.6
+      use-scan-detection-react18:
+        specifier: ^0.2.3
+        version: 0.2.3
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -1385,13 +1385,6 @@ packages:
     resolution: {integrity: sha512-wAvXp4k7jhioi4SebXW/yfzzYwsUCr9kIX4gCsUFKpCTUf8Mi7vScJXI3S+kupSUf0LbVHudR8qBbe2wFMSNUw==}
     cpu: [x64]
     os: [win32]
-
-  '@zxing/library@0.21.3':
-    resolution: {integrity: sha512-hZHqFe2JyH/ZxviJZosZjV+2s6EDSY0O24R+FQmlWZBZXP9IqMo7S3nb3+2LBWxodJQkSurdQGnqE7KXqrYgow==}
-    engines: {node: '>= 10.4.0'}
-
-  '@zxing/text-encoding@0.9.0':
-    resolution: {integrity: sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2912,12 +2905,6 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  react-qr-barcode-scanner@2.0.4:
-    resolution: {integrity: sha512-JMgplW012sRvreRW01V4wddO6MB8Anc8mMvkxbuAVaFfIXJsy+lOSx1ELQQFkSvn4V1WMaXE5i4bXrscMLqbgA==}
-    peerDependencies:
-      react: ^19.1.0
-      react-dom: ^19.1.0
-
   react-select@5.9.0:
     resolution: {integrity: sha512-nwRKGanVHGjdccsnzhFte/PULziueZxGD8LL2WojON78Mvnq7LdAMEtu2frrwld1fr3geixg3iiMBIc/LLAZpw==}
     peerDependencies:
@@ -2929,12 +2916,6 @@ packages:
     peerDependencies:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
-
-  react-webcam@7.2.0:
-    resolution: {integrity: sha512-xkrzYPqa1ag2DP+2Q/kLKBmCIfEx49bVdgCCCcZf88oF+0NPEbkwYk3/s/C7Zy0mhM8k+hpdNkBLzxg8H0aWcg==}
-    peerDependencies:
-      react: '>=16.2.0'
-      react-dom: '>=16.2.0'
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -3262,10 +3243,6 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  ts-custom-error@3.3.1:
-    resolution: {integrity: sha512-5OX1tzOjxWEgsr/YEUWSuPrQ00deKLh6D7OTWcvNHm12/7QPyRh8SYpyWvA4IZv8H/+GQWQEh/kwo95Q9OVW1A==}
-    engines: {node: '>=14.0.0'}
-
   ts-essentials@10.0.3:
     resolution: {integrity: sha512-/FrVAZ76JLTWxJOERk04fm8hYENDo0PWSP3YLQKxevLwWtxemGcl5JJEzN4iqfDlRve0ckyfFaOBu4xbNH/wZw==}
     peerDependencies:
@@ -3365,6 +3342,9 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  use-scan-detection-react18@0.2.3:
+    resolution: {integrity: sha512-sXS7dOSXdq+e+srEZusiZpdN4n7+PEJeq47GhBqm/b0/ixvZkzK0lf+t9mQDtiTHKVFWwJLAToq8jeo0OfhMQA==}
 
   utf8-byte-length@1.0.5:
     resolution: {integrity: sha512-Xn0w3MtiQ6zoz2vFyUVruaCL53O/DwUvkEeOvj+uulMm0BkUGYWmBYVyElqZaSLhY6ZD0ulfU3aBra2aVT4xfA==}
@@ -5381,15 +5361,6 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.5.0':
     optional: true
 
-  '@zxing/library@0.21.3':
-    dependencies:
-      ts-custom-error: 3.3.1
-    optionalDependencies:
-      '@zxing/text-encoding': 0.9.0
-
-  '@zxing/text-encoding@0.9.0':
-    optional: true
-
   acorn-jsx@5.3.2(acorn@8.14.1):
     dependencies:
       acorn: 8.14.1
@@ -7261,13 +7232,6 @@ snapshots:
 
   react-is@16.13.1: {}
 
-  react-qr-barcode-scanner@2.0.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
-      '@zxing/library': 0.21.3
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      react-webcam: 7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-
   react-select@5.9.0(@types/react@19.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.27.0
@@ -7291,11 +7255,6 @@ snapshots:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-
-  react-webcam@7.2.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
-    dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
@@ -7710,8 +7669,6 @@ snapshots:
     dependencies:
       typescript: 5.7.3
 
-  ts-custom-error@3.3.1: {}
-
   ts-essentials@10.0.3(typescript@5.7.3):
     optionalDependencies:
       typescript: 5.7.3
@@ -7846,6 +7803,8 @@ snapshots:
       react: 19.1.0
     optionalDependencies:
       '@types/react': 19.1.0
+
+  use-scan-detection-react18@0.2.3: {}
 
   utf8-byte-length@1.0.5: {}
 

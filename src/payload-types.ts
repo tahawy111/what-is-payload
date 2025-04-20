@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     products: Product;
     categories: Category;
+    invoices: Invoice;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    invoices: InvoicesSelect<false> | InvoicesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -180,6 +182,26 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "invoices".
+ */
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  date: string;
+  products: {
+    product: string | Product;
+    quantity: number;
+    price: number;
+    subtotal?: number | null;
+    id?: string | null;
+  }[];
+  totalProducts?: number | null;
+  totalAmount?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -200,6 +222,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'invoices';
+        value: string | Invoice;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -296,6 +322,27 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface CategoriesSelect<T extends boolean = true> {
   name?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "invoices_select".
+ */
+export interface InvoicesSelect<T extends boolean = true> {
+  invoiceNumber?: T;
+  date?: T;
+  products?:
+    | T
+    | {
+        product?: T;
+        quantity?: T;
+        price?: T;
+        subtotal?: T;
+        id?: T;
+      };
+  totalProducts?: T;
+  totalAmount?: T;
   updatedAt?: T;
   createdAt?: T;
 }

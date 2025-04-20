@@ -4,4 +4,5 @@ export interface Product {
   price: number
   barcode: string
   stock: number
+  quantity: number
 }

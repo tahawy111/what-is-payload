@@ -77,6 +77,28 @@ function HomePage() {
             </tfoot>
           </table>
         </div>
+        <div className="mt-4">
+          <button
+            onClick={() => setProducts([])}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+          >
+            مسح القائمة
+          </button>
+        </div>
+        <div className="mt-4">
+          <p className="text-gray-700">عدد المنتجات: {products.length}</p>
+        </div>
+        <div className="mt-4">
+          <p className="text-gray-700">الإجمالي: {total}</p>
+        </div>
+        <div className="mt-4">
+          <button
+            onClick={() => console.log('إنشاء فاتورة')}
+            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+          >
+            إنشاء فاتورة
+          </button>
+        </div>
       </div>
     </div>
   )

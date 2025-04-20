@@ -8,34 +8,31 @@ function HomePage() {
   const { barcode, scanning } = useBarcodeScan()
   const [products, setProducts] = useState<any[]>([])
   const [error, setError] = useState<string | null>(null)
-  const lastScannedRef = useRef<string>('')
 
-  const updateOrAddProduct = useCallback(
-    async (barcode: string) => {
-      // Prevent duplicate scans
-      if (products.findIndex((product) => product.barcode === barcode) !== -1) {
-        console.log('تم مسح هذا المنتج مسبقاً')
-        products[products.findIndex((product) => product.barcode === barcode)].quantity += 1
-        return
-      }
-      lastScannedRef.current = barcode
+  const updateOrAddProduct = async (barcode: string) => {
+    // Prevent duplicate scans
+    if (products.findIndex((product) => product.barcode === barcode) !== -1) {
+      console.log('تم مسح هذا المنتج مسبقاً')
+      products[products.findIndex((product) => product.barcode === barcode)].quantity += 1
+      return
+    }
 
+    if (barcode) {
       const product = await getProductByBarcode(barcode)
       console.log('مسح المنتج:', product)
       // Add product to the list if it doesn't exist
       if (product) {
         setProducts((prevProducts) => [...prevProducts, { ...product, quantity: 1 }])
       }
-    },
-    [products],
-  )
+    }
+  }
 
   useEffect(() => {
-    if (barcode && scanning) {
-      updateOrAddProduct(barcode)
+    const fetchProducts = async () => {
+      await updateOrAddProduct(barcode)
     }
-    console.log(products)
-  }, [barcode, scanning, updateOrAddProduct])
+    fetchProducts()
+  }, [scanning])
 
   const total = products.reduce((sum, product) => sum + product.price * product.quantity, 0)
 

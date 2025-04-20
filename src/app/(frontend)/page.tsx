@@ -4,15 +4,14 @@ import { useBarcodeScan } from '@/hooks/useBarcodeScan'
 import { getProductByBarcode } from '@/services/productService'
 import { Product } from '@/types/product'
 import { createInvoice } from '@/services/invoiceService'
+import { useRouter } from 'next/navigation'
 
 function HomePage() {
+  const router = useRouter()
   const { barcode, scanning, scanCount } = useBarcodeScan()
   const [products, setProducts] = useState<Product[]>([])
   const [error, setError] = useState<string | null>(null)
-
-  // إضافة ref لتتبع حالة المعالجة
-  const isProcessing = useRef(false)
-  const lastScannedBarcode = useRef<string | null>(null)
+  const [isInvoiceSubmitting, setIsInvoiceSubmitting] = useState(false)
 
   const updateOrAddProduct = async (barcode: string) => {
     // البحث عن المنتج في القائمة
@@ -60,6 +59,22 @@ function HomePage() {
   }, [barcode, scanCount]) // Remove scanning dependency
 
   const total = products.reduce((sum, product) => sum + product.price * product.quantity, 0)
+
+  const submitInvoice = async () => {
+    try {
+      setIsInvoiceSubmitting(true)
+      const { doc: data } = await createInvoice(products)
+
+      router.push('/successfull-pay/' + data.id)
+    } catch (error) {
+      console.error('Error creating invoice:', error)
+      setIsInvoiceSubmitting(false)
+    } finally {
+      setProducts([])
+      setError(null)
+      setIsInvoiceSubmitting(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -119,7 +134,8 @@ function HomePage() {
           </div>
           <div className="mt-4">
             <button
-              onClick={() => createInvoice(products)}
+              disabled={isInvoiceSubmitting || products.length === 0}
+              onClick={submitInvoice}
               className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
             >
               إنشاء فاتورة

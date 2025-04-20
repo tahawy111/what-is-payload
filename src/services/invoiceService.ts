@@ -10,10 +10,10 @@ export async function createInvoice(products: Product[]): Promise<any | null> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        invoiceNumber: `INV-${Date.now()}`, // رقم الفاتورة (يمكنك تخصيصه)
+        invoiceNumber: `INV-${Date.now()}`,
         date: new Date(),
         products: products.map((product) => ({
-          product: product.id, // ID المنتج
+          product: product.id,
           quantity: product.quantity,
           price: product.price,
         })),

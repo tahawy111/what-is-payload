@@ -18,10 +18,10 @@ export const Products: CollectionConfig = {
     },
     {
       name: 'barcode',
-      type: 'number',
+      type: 'text',
     },
     {
-      name: 'quantity',
+      name: 'stock',
       type: 'number',
     },
     {

@@ -161,8 +161,8 @@ export interface Product {
   id: string;
   title: string;
   price: number;
-  barcode?: number | null;
-  quantity?: number | null;
+  barcode?: string | null;
+  stock?: number | null;
   category: string | Category;
   updatedAt: string;
   createdAt: string;
@@ -284,7 +284,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   price?: T;
   barcode?: T;
-  quantity?: T;
+  stock?: T;
   category?: T;
   updatedAt?: T;
   createdAt?: T;

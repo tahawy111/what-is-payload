@@ -23,6 +23,7 @@ export const Products: CollectionConfig = {
     {
       name: 'stock',
       type: 'number',
+      required: true,
     },
     {
       name: 'category',

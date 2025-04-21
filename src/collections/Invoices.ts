@@ -1,9 +1,80 @@
 import type { CollectionConfig } from 'payload'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 export const Invoices: CollectionConfig = {
   slug: 'invoices',
   admin: {
     useAsTitle: 'invoiceNumber',
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, operation }) => {
+        const payload = await getPayload({ config })
+        if (operation !== 'create') return
+
+        // تأكد من وجود المنتجات
+        if (!doc.products?.length) return
+
+        // استخدام Promise.all لمعالجة كل المنتجات بشكل متزامن
+        await Promise.all(
+          doc.products.map(async (item: any) => {
+            try {
+              // Get product ID correctly
+              const productId = typeof item.product === 'string' ? item.product : item.product.id
+
+              if (!productId) {
+                console.error('No product ID found:', item)
+                return
+              }
+
+              // Try to find the product
+              try {
+                const {
+                  docs: [product],
+                } = await payload.find({
+                  collection: 'products',
+                  where: {
+                    id: {
+                      equals: productId,
+                    },
+                  },
+                  limit: 1,
+                })
+
+                if (!product) {
+                  console.error(`Product not found: ${productId}`)
+                  return
+                }
+
+                // Calculate new stock
+                const currentStock = Number(product.stock) || 0
+                const quantity = Number(item.quantity) || 0
+                const newStock = currentStock - quantity
+
+                if (newStock < 0) {
+                  console.error(`Insufficient stock for product ${productId}`)
+                  return
+                }
+
+                // Update stock
+                await payload.update({
+                  collection: 'products',
+                  id: productId,
+                  data: { stock: newStock },
+                })
+
+                console.log(`Updated stock for ${productId}: ${currentStock} -> ${newStock}`)
+              } catch (err) {
+                console.error(`Error processing product ${productId}:`, err)
+              }
+            } catch (error) {
+              console.error('Error in product processing:', error)
+            }
+          }),
+        )
+      },
+    ],
   },
   fields: [
     {

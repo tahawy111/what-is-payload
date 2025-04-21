@@ -164,7 +164,7 @@ export interface Product {
   title: string;
   price: number;
   barcode?: string | null;
-  stock?: number | null;
+  stock: number;
   category: string | Category;
   updatedAt: string;
   createdAt: string;

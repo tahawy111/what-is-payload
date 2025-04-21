@@ -24,6 +24,21 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Products, Categories, Invoices],
+  // localization: {
+  //   locales: [
+  //     {
+  //       label: 'English',
+  //       code: 'en',
+  //     },
+  //     {
+  //       label: 'Arabic',
+  //       code: 'ar',
+  //       rtl: true,
+  //     },
+  //   ],
+  //   defaultLocale: 'ar', // required
+  //   fallback: true, // defaults to true
+  // },
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
